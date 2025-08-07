@@ -11,6 +11,7 @@ class AppRoutes extends Component {
                 <Routes>
                     <Route path="/" element={<App/>}>
                         <Route index={true} element={<Home/>}/>
+
                     </Route>
                 </Routes>
             </BrowserRouter>
