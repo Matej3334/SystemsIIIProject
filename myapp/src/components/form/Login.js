@@ -1,13 +1,21 @@
-import React from "react";
 import { useState } from 'react';
 
 function Form(){
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const msgbody = JSON.stringify(formData)
+        const fetchdata = {
+            method: 'POST',
+            body: msgbody 
+        };
+        fetch('https://localhost:4100/users/login',fetchdata);
+    }
     return(
         <div>
-            <form>
+            <form method='POST' onSubmit={handleSubmit}>
                     <label>Student id:
                         <input
                             type="text"

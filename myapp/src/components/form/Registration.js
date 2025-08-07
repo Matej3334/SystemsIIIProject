@@ -5,10 +5,24 @@ function Registration(){
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [faculty, setFaculty] = useState("");
+    const [f_name, setName] = useState("");
+    const [l_name, setLName] = useState("");
     
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const msgbody = JSON.stringify(formData)
+        const fetchdata = {
+            method: 'POST',
+            body: msgbody 
+        };
+        fetch('https://localhost:4100/users/register',fetchdata);
+    }
+
     return(
         <div>
-            <form>
+            <form method='POST' onSubmit={handleSubmit}>
                     <label>Student id:
                         <input
                             type="text"
@@ -28,20 +42,27 @@ function Registration(){
                     <label>Faculty:
                         <input
                             type="text"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={faculty}
+                            onChange={(e) => setFaculty(e.target.value)}
+                        />
+                    </label>
+                    <label>First Name:
+                        <input
+                            type="text"
+                            value={f_name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </label>
+                    <label>Last Name:
+                        <input
+                            type="text"
+                            value={l_name}
+                            onChange={(e) => setLName(e.target.value)}
                         />
                     </label>
                     <label>Password:
                         <input
-                            type="text"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </label>
-                    <label>Password:
-                        <input
-                            type="text"
+                            type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
