@@ -1,11 +1,10 @@
 const express = require('express')
+require('dotenv').config()
+const DB = require('./DB/dbConn')
 const app = express() 
 const cors = require('cors');
 const port = 3023
 const users= require("./routes/users")
-require('dotenv').config()
-const DB = require('./DB/dbConn')
-
 
 app.get("/",(req,res)=>{
 res.json("res");
