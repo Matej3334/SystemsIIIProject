@@ -1,6 +1,7 @@
 const express= require("express")
 const users = express.Router();
-const DB=require('../database/databaseConn.js')
+const DB=require('../DB/dbConn.js')
+
 
 var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -18,12 +19,15 @@ users.post('/register', urlencodedParser, async (req,res)=>{
                 "message": "Registered new user."});
         }
   } catch (err) {
-        console.error('Error creating user:', err);
-        res.status(500);
+    console.error('Error creating user:', err);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
-    }else{
-        console.log("field is empty")
-    }
+    } else {
+    console.log("field is empty")
+    res.status(400).json({ success: false, message: "All fields are required" });
+}
     res.end()
 
 });
+
+module.exports=users
