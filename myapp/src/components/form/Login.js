@@ -50,6 +50,7 @@ function Form() {
     return (
         <div>
             <h2>Login</h2>
+            {error}
             <form method='POST' onSubmit={handleSubmit} >
                 <label>Student id:
                     <input

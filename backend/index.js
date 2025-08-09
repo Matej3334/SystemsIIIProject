@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors');
 const port = 3023
 const users= require("./routes/users")
+const buildings= require("./routes/buildings")
 
 app.use(express.json());
 
@@ -19,6 +20,7 @@ app.use(cors({
  }))
 
 app.use('/users', users);
+app.use("/building", buildings)
 ///App listening on port
 app.listen(process.env.PORT || port, ()=>{
 console.log(`Server is running on port: ${process.env.PORT || port}`)

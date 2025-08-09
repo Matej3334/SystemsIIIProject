@@ -25,7 +25,7 @@ function Registration() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.email.includes('@')) {
+        if (!formData.email.includes('@student.upr.si')) {
             setError("Not a valid email");
             return;
         }
@@ -46,11 +46,12 @@ function Registration() {
                 })
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
                 throw new Error(data.message);
             }
-            const data = await response.json();
-
+            
             setState(true)
             setError("");
         } catch (err) {
@@ -72,6 +73,7 @@ function Registration() {
                     <input
                         type="text"
                         name="id"
+                        minLength="6"
                         value={formData.id}
                         onChange={handleChange}
                         required
@@ -91,13 +93,13 @@ function Registration() {
 
                 <div className="form-group">
                     <label>Faculty:</label>
-                    <input
-                        type="text"
-                        name="faculty"
-                        value={formData.faculty}
-                        onChange={handleChange}
-                        required
-                    />
+                    <select id="mySelect" onChange={handleChange} required value={formData.faculty}  name="faculty">
+                        <option value="">--Please choose an option--</option>
+                        <option value="FAMNIT">UP FAMNIT</option>
+                        <option value="FM">UP FM</option>
+                        <option value="FVZ">UP FVZ</option>
+                        <option value="PEF">UP PEF</option>
+                    </select>
                 </div>
 
                 <div className="form-group">

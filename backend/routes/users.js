@@ -1,6 +1,6 @@
-const express= require("express")
+const express = require("express")
 const users = express.Router();
-const DB=require('../DB/dbConn.js')
+const DB = require('../DB/dbConn.js')
 
 
 users.post('/register', express.json(), async (req, res) => {
@@ -9,14 +9,26 @@ users.post('/register', express.json(), async (req, res) => {
     var isAlldata = id && email && password && f_name && l_name && faculty
     if (isAlldata) {
         try {
+            let User = await DB.oneUser(id);
+            if(!User || !User.length > 0){
+                
+            
             var queryResult = await DB.createUser(id, email, password, f_name, l_name, faculty);
             if (queryResult.affectedRows) {
                 console.log("Registered new user")
                 res.status(201).json({
-                    "success": true,
-                    "message": "Registered new user."
+                    "success": false,
+                    "message": "User already exists."
                 });
             }
+        } else {
+            console.log("User already registered")
+                 res.status(400).json({
+                    "success": true,
+                    "message": "User with that id already exists."
+                });
+                
+        }
         } catch (err) {
             console.error('Error creating user:', err);
             res.status(500).json({ success: false, message: "Internal server error" });
@@ -70,4 +82,5 @@ users.post('/login', express.json(), async (req, res) => {
     }
     res.end()
 })
+
 module.exports = users

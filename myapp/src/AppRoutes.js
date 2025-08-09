@@ -15,7 +15,6 @@ class AppRoutes extends Component {
                     <Route path="/" index={true}  element={<Login />} />
                     <Route path="/Home" element={<App/>}>
                         <Route index={true} element={<Home/>}/>
-
                     </Route>
                 </Routes>
             </BrowserRouter>

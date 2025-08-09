@@ -1,5 +1,5 @@
 import TabItem from './TabItem';
-
+import "./styles"
 
 function TabContainer({children}){
 
@@ -22,20 +22,12 @@ const getTabs = () => {
     return [
         {
             text: 'Home',
-            url: '/',
+            url: '/home',
         },
         {
-            text: 'Create News',
-            url: '/news-create',
-        },
-        {
-            text: 'Login',
-            url: '/login',
-        },
-        {
-            text: 'Counter',
-            url: '/counter',
-        },
+            text: 'Tableview',
+            url: '/map',
+        }
     ]
 }
 export default TabContainer;
