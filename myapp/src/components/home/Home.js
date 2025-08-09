@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Form from '../form/Login';
 
 class Home extends Component{
     componentDidMount(){
@@ -9,7 +8,7 @@ class Home extends Component{
         return(
         <div className="content-container">
             <div className="main-content">
-                <Form></Form>
+                <h1>main page</h1>
             </div>
         </div>
     );

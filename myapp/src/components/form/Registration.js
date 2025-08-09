@@ -1,75 +1,145 @@
-import React from "react";
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Registration(){
-    const [id, setId] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [faculty, setFaculty] = useState("");
-    const [f_name, setName] = useState("");
-    const [l_name, setLName] = useState("");
-    
+function Registration() {
+    const [formData, setFormData] = useState({
+        id: "",
+        password: "",
+        email: "",
+        faculty: "",
+        f_name: "",
+        l_name: ""
+    });
 
-    const handleSubmit = (event) => {
+    const [error, setError] = useState("");
+    const [state, setState] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const msgbody = JSON.stringify(formData)
-        const fetchdata = {
-            method: 'POST',
-            body: msgbody 
-        };
-        fetch('https://localhost:4100/users/register',fetchdata);
+
+        if (!formData.email.includes('@')) {
+            setError("Not a valid email");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://88.200.63.148:3023/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: formData.id,
+                    password: formData.password,
+                    email: formData.email,
+                    faculty: formData.faculty,
+                    f_name: formData.f_name,
+                    l_name: formData.l_name
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+            const data = await response.json();
+
+            setState(true)
+            setError("");
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
-    return(
+    if (state) {
+        return <div>Registration successful! Click here to <Link to="/">Log in</Link></div>;
+    }
+
+    return (
         <div>
+            <h2>Registration</h2>
+            {error && <div>{error}</div>}
             <form method='POST' onSubmit={handleSubmit}>
-                    <label>Student id:
-                        <input
-                            type="text"
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                        />
-                    </label>
-                    <br></br>
-                    <label>Email:
-                        <input
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </label>
-                    <br></br>
-                    <label>Faculty:
-                        <input
-                            type="text"
-                            value={faculty}
-                            onChange={(e) => setFaculty(e.target.value)}
-                        />
-                    </label>
-                    <label>First Name:
-                        <input
-                            type="text"
-                            value={f_name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </label>
-                    <label>Last Name:
-                        <input
-                            type="text"
-                            value={l_name}
-                            onChange={(e) => setLName(e.target.value)}
-                        />
-                    </label>
-                    <label>Password:
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </label>
-                    <button type='submit'>Log in</button>
-                </form>
-        </div> 
-    )
+                <div className="form-group">
+                    <label>Student ID:</label>
+                    <input
+                        type="text"
+                        name="id"
+                        value={formData.id}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Faculty:</label>
+                    <input
+                        type="text"
+                        name="faculty"
+                        value={formData.faculty}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>First Name:</label>
+                    <input
+                        type="text"
+                        name="f_name"
+                        value={formData.f_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Last Name:</label>
+                    <input
+                        type="text"
+                        name="l_name"
+                        value={formData.l_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        minLength="6"
+                    />
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>
+                Already have an account? <Link to="/">Log in</Link>
+            </p>
+        </div>
+    );
 }
+
 export default Registration;

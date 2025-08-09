@@ -77,7 +77,7 @@ dataPool.createReservation= (u_id, r_id, status, s_time, length )=>{
 
 dataPool.oneUser=(u_id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT * FROM User Where u_id = ?`, [u_id],(err,res)=>{
+   conn.query(`SELECT * FROM User Where u_id = ?`, u_id ,(err,res)=>{
      if(err){return reject(err)}
      return resolve(res)
    })

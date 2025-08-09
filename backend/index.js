@@ -6,6 +6,8 @@ const cors = require('cors');
 const port = 3023
 const users= require("./routes/users")
 
+app.use(express.json());
+
 app.get("/",(req,res)=>{
 res.json("res");
 })

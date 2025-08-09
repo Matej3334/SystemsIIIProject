@@ -3,31 +3,71 @@ const users = express.Router();
 const DB=require('../DB/dbConn.js')
 
 
-var bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-users.post('/register', urlencodedParser, async (req,res)=>{
+users.post('/register', express.json(), async (req, res) => {
     const { id, email, password, f_name, l_name, faculty } = req.body;
-    
-    var isAcompleteUser = id && email && password && f_name && l_name && faculty 
-    if (isAcompleteUser){
-    try {
-        var queryResult=await DB.createUser(id, email, password, f_name, l_name, faculty);
-        if(queryResult.affectedRows){
-            console.log("Registered new user")
-            res.status(201).json({ "success": true,
-                "message": "Registered new user."});
+
+    var isAlldata = id && email && password && f_name && l_name && faculty
+    if (isAlldata) {
+        try {
+            var queryResult = await DB.createUser(id, email, password, f_name, l_name, faculty);
+            if (queryResult.affectedRows) {
+                console.log("Registered new user")
+                res.status(201).json({
+                    "success": true,
+                    "message": "Registered new user."
+                });
+            }
+        } catch (err) {
+            console.error('Error creating user:', err);
+            res.status(500).json({ success: false, message: "Internal server error" });
         }
-  } catch (err) {
-    console.error('Error creating user:', err);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
     } else {
-    console.log("field is empty")
-    res.status(400).json({ success: false, message: "All fields are required" });
-}
+        console.log("field is empty")
+        res.status(400).json({ success: false, message: "All fields are required" });
+    }
     res.end()
 
 });
 
-module.exports=users
+
+users.post('/login', express.json(), async (req, res) => {
+    const { id, password } = req.body
+    var Data = id && password
+    if (Data) {
+        try {
+            let queryResult = await DB.oneUser(id);
+            if (queryResult.length > 0) {
+                if (password === queryResult[0].password) {
+                    console.log("LOGIN SUCCESSFUL")
+                    res.status(201).json({
+                    "success": true,
+                    "message": "Logged in"
+                    });
+                }
+                else {
+                    console.log("LOGIN UNSUCCESSFUL")
+                    return res.status(401).json({ 
+                    success: false, 
+                    message: "Incorrect password" 
+                });
+                }
+            }
+            else {
+                return res.status(401).json({ 
+                success: false, 
+                message: "Invalid credentials" 
+            });
+            }
+        }
+        catch (err) {
+            console.error('Error logging in:', err);
+            res.status(500).json({ success: false, message: "Internal server error" });
+        }
+    }
+    else {
+        console.log("field is empty")
+        res.status(400).json({ success: false, message: "All fields are required" });
+    }
+    res.end()
+})
+module.exports = users

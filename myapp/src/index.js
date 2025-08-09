@@ -11,9 +11,9 @@ root.render(
   </React.StrictMode>
 );
 
-function importAll(r){
-  r.keys().forEach(r);
-}
+//function importAll(r){
+//  r.keys().forEach(r);
+//}
 
 reportWebVitals();
 
