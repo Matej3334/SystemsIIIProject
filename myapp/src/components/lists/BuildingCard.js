@@ -4,6 +4,7 @@ import RoomCard from "./RoomCard"
 function BuildingCard({ id, b_name, location, workhours }) {
     const [rooms, setRooms]=useState([]);
 
+    
     useEffect(() => {
         const getRooms = async () => {
             try {
@@ -35,6 +36,7 @@ function BuildingCard({ id, b_name, location, workhours }) {
                 {
                     rooms ?
                     rooms.map(ru => <RoomCard
+                    id={ru.id}
                     key={ru.id}
                     name={ru.name}
                     capacity={ru.capacity}

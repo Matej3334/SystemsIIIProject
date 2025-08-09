@@ -17,14 +17,14 @@ users.post('/register', express.json(), async (req, res) => {
             if (queryResult.affectedRows) {
                 console.log("Registered new user")
                 res.status(201).json({
-                    "success": false,
+                    "success": true,
                     "message": "User already exists."
                 });
             }
         } else {
             console.log("User already registered")
                  res.status(400).json({
-                    "success": true,
+                    "success": false,
                     "message": "User with that id already exists."
                 });
                 

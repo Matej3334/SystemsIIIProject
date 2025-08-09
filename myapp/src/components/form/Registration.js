@@ -68,7 +68,7 @@ function Registration() {
             <h2>Registration</h2>
             {error && <div>{error}</div>}
             <form method='POST' onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div>
                     <label>Student ID:</label>
                     <input
                         type="text"
@@ -80,7 +80,7 @@ function Registration() {
                     />
                 </div>
 
-                <div className="form-group">
+                <div>
                     <label>Email:</label>
                     <input
                         type="email"
@@ -91,10 +91,10 @@ function Registration() {
                     />
                 </div>
 
-                <div className="form-group">
+                <div>
                     <label>Faculty:</label>
                     <select id="mySelect" onChange={handleChange} required value={formData.faculty}  name="faculty">
-                        <option value="">--Please choose an option--</option>
+                        <option value="" disabled>--Please choose an option--</option>
                         <option value="FAMNIT">UP FAMNIT</option>
                         <option value="FM">UP FM</option>
                         <option value="FVZ">UP FVZ</option>
@@ -102,7 +102,7 @@ function Registration() {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div>
                     <label>First Name:</label>
                     <input
                         type="text"
@@ -113,7 +113,7 @@ function Registration() {
                     />
                 </div>
 
-                <div className="form-group">
+                <div>
                     <label>Last Name:</label>
                     <input
                         type="text"
@@ -124,7 +124,7 @@ function Registration() {
                     />
                 </div>
 
-                <div className="form-group">
+                <div>
                     <label>Password:</label>
                     <input
                         type="password"

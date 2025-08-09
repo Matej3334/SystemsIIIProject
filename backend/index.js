@@ -7,6 +7,7 @@ const port = 3023
 const users= require("./routes/users")
 const build= require("./routes/buildings")
 const room= require("./routes/rooms")
+const reservation = require("./routes/reservations")
 
 app.use(express.json());
 
@@ -23,6 +24,7 @@ app.use(cors({
 app.use('/users', users);
 app.use("/build", build);
 app.use('/rooms', room);
+app.use('/reservation', reservation)
 
 app.listen(process.env.PORT || port, ()=>{
 console.log(`Server is running on port: ${process.env.PORT || port}`)

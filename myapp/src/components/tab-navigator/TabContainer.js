@@ -24,8 +24,8 @@ const getTabs = () => {
             url: '/home',
         },
         {
-            text: 'Tableview',
-            url: '/map',
+            text: 'Profile',
+            url: './profile',
         }
     ]
 }

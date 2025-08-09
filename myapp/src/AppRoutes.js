@@ -5,7 +5,8 @@ import Login from './components/form/Login'
 import Registration from './components/form/Registration'
 import Home from './components/home/Home';
 import BuildingList from './components/lists/BuildingList.js'
-
+import Reserve from './components/form/Reserve'
+import ProfileCard from './components/profile/ProfileCard'
 
 class AppRoutes extends Component {
     render(){
@@ -17,6 +18,8 @@ class AppRoutes extends Component {
                     <Route path="/Home" element={<App/>}>
                         <Route index={true} element={<BuildingList/>} />
                         <Route path="h" element={<Home/>}/>
+                        <Route path="/Home/reserve/:id" element={<Reserve/>} />
+                        <Route path="/Home/profile" element={<ProfileCard/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

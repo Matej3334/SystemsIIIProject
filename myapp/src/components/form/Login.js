@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ function Form() {
         id: "",
         password: "",
     });
-
 
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -34,14 +33,14 @@ function Form() {
                 })
             });
 
-           const data = await response.json();
+            const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-           console.log('Login successful', data);
-           navigate('/home');
+            if (!response.ok) {
+                throw new Error(data.message || 'Login failed');
+            }
+            console.log('Login successful', data);
+            localStorage.setItem('id', formData.id);
+            navigate('/home');
         } catch (err) {
             setError(err.message);
         }

@@ -1,8 +1,17 @@
 import BuildingCard from "./BuildingCard";
 import { useEffect,useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 function BuildingList() {
     const [building, setBuilding]=useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const userId = localStorage.getItem('id');
+        if (!userId) {
+            navigate('/'); 
+        }
+    }, [navigate]);
 
     useEffect(() => {
       const getBuildings = async() => {
@@ -25,9 +34,7 @@ function BuildingList() {
     <div >
       <header>
         <h1>University Buildings</h1>
-        <p>Select a building to view available study rooms</p>
       </header>
-
       <div style={{display: 'grid', gridTemplateColumns:'auto auto auto auto', rowGap:'5%'}}>
         {
           building ?

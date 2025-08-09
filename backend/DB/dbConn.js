@@ -65,10 +65,10 @@ dataPool.allReservationsInRoom=(r_id)=>{
  })
 }
 
-dataPool.createReservation= (u_id, r_id, status, s_time, length )=>{
+dataPool.createReservation= (u_id, r_id, status, s_time, length, use_equipment )=>{
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO Reservation (u_id, r_id, s_time, length) VALUES (?,?,?,?)`,
-         [u_id, r_id, status, s_time, length], (err,res)=>{
+    conn.query(`INSERT INTO Reservation (u_id, r_id, s_time, length, use_equipment) VALUES (?,?,?,?,?)`,
+         [u_id, r_id, status, s_time, length, use_equipment], (err,res)=>{
       if(err){
         return reject(err)
       }
