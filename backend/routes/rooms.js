@@ -1,13 +1,14 @@
 const express = require("express")
-const build = express.Router();
+const room = express.Router();
 const DB = require('../DB/dbConn.js')
 
 
-build.get('/', async (req, res) => { 
+room.get('/:b_id', async (req, res) => { 
     try{
-        const queryResult = await DB.allBuildings();
+        const b_id = req.params.b_id;
+        const queryResult = await DB.allRooms(b_id);
         res.json(queryResult);
-        console.log("sending data");
+        console.log(`sending rooms with ${b_id}`);
     }
     catch(err){
         console.error('Error fetching buildings:', err);
@@ -15,4 +16,4 @@ build.get('/', async (req, res) => {
     }
 });
 
-module.exports = build
+module.exports = room

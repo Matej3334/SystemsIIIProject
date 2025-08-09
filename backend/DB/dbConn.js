@@ -30,7 +30,9 @@ dataPool.createUser=(id ,email, password, f_name, l_name, faculty)=>{
 dataPool.allBuildings=()=>{
  return new Promise ((resolve, reject)=>{
    conn.query(`SELECT * FROM Building`, (err,res)=>{
-     if(err){return reject(err)}
+    if(err){
+      return reject(err)
+    }
      return resolve(res)
    })
  })
@@ -38,7 +40,7 @@ dataPool.allBuildings=()=>{
 
 dataPool.allRooms=(b_id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT r_id FROM Building WHERE b_id = ?`, (err,res)=>{
+   conn.query(`SELECT * FROM Study_rooms WHERE b_id = ?`, [b_id], (err,res)=>{
      if(err){return reject(err)}
      return resolve(res)
    })

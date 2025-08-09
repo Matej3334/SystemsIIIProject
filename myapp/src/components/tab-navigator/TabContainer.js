@@ -1,5 +1,4 @@
 import TabItem from './TabItem';
-import "./styles"
 
 function TabContainer({children}){
 

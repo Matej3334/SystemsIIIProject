@@ -5,7 +5,8 @@ const app = express()
 const cors = require('cors');
 const port = 3023
 const users= require("./routes/users")
-const buildings= require("./routes/buildings")
+const build= require("./routes/buildings")
+const room= require("./routes/rooms")
 
 app.use(express.json());
 
@@ -14,14 +15,15 @@ res.json("res");
 })
 
 app.use(cors({
-    origin: `http://88.200.63.148:3009`,
+    origin: `http://88.200.63.148:8005`,
     methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
     credentials: true
  }))
 
 app.use('/users', users);
-app.use("/building", buildings)
-///App listening on port
+app.use("/build", build);
+app.use('/rooms', room);
+
 app.listen(process.env.PORT || port, ()=>{
 console.log(`Server is running on port: ${process.env.PORT || port}`)
 })
