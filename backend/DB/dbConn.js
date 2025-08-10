@@ -69,11 +69,7 @@ dataPool.countOverlaps = (r_id, s_time, e_time) => {
          (s_time <= ? AND e_time >= ?)   
        )`,
       [
-        r_id,
-        e_time, s_time,  
-        s_time, e_time,  
-        s_time, e_time,  
-        s_time, e_time   
+        r_id, e_time, s_time, s_time, e_time, s_time, e_time, s_time, e_time   
       ],
       (err, results) => {
         if (err) return reject(err);
@@ -137,7 +133,7 @@ dataPool.deleteRating = (u_id, r_id) => {
   })
 }
 
-dataPool.editReservation = (id, s_time, e_timeh) => {
+dataPool.editReservation = (id, s_time, e_time) => {
   return new Promise((resolve, reject) => {
     conn.query(`UPDATE Reservation 
       SET e_time = ?, s_time = ?

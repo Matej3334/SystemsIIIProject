@@ -75,7 +75,10 @@ function MyReservation() {
             if (!response.ok) {
                 throw new Error(result.error || 'Failed to update reservation time');
             }
-            window.location.reload();
+            setReservation(prev => prev.map(r => 
+                r.id === id ? { ...r, s_time, e_time } : r
+            ));
+
             return result;
         } catch (err) {
             console.error('Update error:', err);

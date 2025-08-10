@@ -16,7 +16,7 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
         try {
             await onUpdate(
                 id,
-                formData.r_id,
+                r_id,
                 formData.s_time,
                 formData.e_time
             );
