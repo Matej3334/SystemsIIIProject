@@ -77,9 +77,31 @@ dataPool.createReservation= (u_id, r_id, status, s_time, length, use_equipment )
   })
 }
 
+dataPool.getReservation= (u_id)=>{
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Reservation WHERE u_id = ?`, u_id, (err,res)=>{
+      if(err){
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.deleteReservation= (id)=>{
+  return new Promise((resolve, reject) => {
+    conn.query(`DELETE FROM Reservation WHERE id = ?`, id, (err,res)=>{
+      if(err){
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
 dataPool.oneUser=(u_id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT * FROM User Where u_id = ?`, u_id ,(err,res)=>{
+   conn.query(`SELECT * FROM User WHERE u_id = ?`, u_id ,(err,res)=>{
      if(err){return reject(err)}
      return resolve(res)
    })

@@ -26,7 +26,11 @@ const getTabs = () => {
         {
             text: 'Profile',
             url: './profile',
-        }
+        },
+        {
+            text: 'Reservation',
+            url: './res',
+        },
     ]
 }
 export default TabContainer;
