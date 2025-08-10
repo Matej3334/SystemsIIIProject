@@ -30,14 +30,24 @@ rating.get('/:r_id/average', async (req, res) => {
     res.end()
 });
 
-rating.post('/post', async (req, res) => {
+rating.post('/:r_id/post', async (req, res) => {
     const { u_id, r_id, score, comment } = req.body;
     isAllData = u_id && r_id && score && comment
     if (isAllData) {
         try {
+            const check = await DB.checkRating(u_id , r_id);
+            if(check.length == 0){
             const queryResult = await DB.addRating(u_id, r_id, score, comment);
             res.json(queryResult);
             console.log(`added rating to room ${r_id}`);
+            } 
+            else {
+                console.log("error adding rating")
+                res.status(400).json({
+                    "success": false,
+                    "message": "Can't have multiple ratings"
+                });
+            }
         }
         catch (err) {
             console.error('Error adding rating:', err);

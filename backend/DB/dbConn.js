@@ -111,6 +111,7 @@ dataPool.editReservation=(id, s_time, length)=>{
     })
   })
 }
+
 dataPool.oneUser=(u_id)=>{
  return new Promise ((resolve, reject)=>{
    conn.query(`SELECT * FROM User WHERE u_id = ?`, u_id ,(err,res)=>{
@@ -129,6 +130,14 @@ dataPool.addRating=(u_id, r_id, score, comment)=>{
   })
 }
 
+dataPool.checkRating=(u_id, r_id)=>{
+ return new Promise ((resolve, reject)=>{
+   conn.query(`SELECT * FROM Ratings WHERE u_id = ? AND r_id = ?`, [u_id,r_id] ,(err,res)=>{
+     if(err){return reject(err)}
+     return resolve(res)
+   })
+ })
+}
 dataPool.allRatings=(r_id)=>{
  return new Promise ((resolve, reject)=>{
    conn.query(`SELECT * FROM Ratings WHERE r_id=?`,r_id, (err,res)=>{
