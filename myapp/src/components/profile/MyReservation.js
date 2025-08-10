@@ -14,7 +14,7 @@ function MyReservation() {
         }
     }, [navigate]);
 
-    
+
     useEffect(() => {
         const getReservation = async () => {
             try {
@@ -39,7 +39,7 @@ function MyReservation() {
     }, []);
 
     const handleDelete = async (id) => {
-        
+
         const response = await fetch('http://88.200.63.148:3023/reservation/delete', {
             method: 'POST',
             headers: {
@@ -55,6 +55,33 @@ function MyReservation() {
         //window.location.reload();
         setD(true);
     };
+
+    const handleUpdate = async (id, s_time, length) => {
+        try {
+            const response = await fetch('http://88.200.63.148:3023/reservation/edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id,
+                    s_time,
+                    length,
+                })
+
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to update reservation time');
+            }
+            window.location.reload();
+            return result;
+        } catch (err) {
+            console.error('Update error:', err);
+            throw err;
+        }
+    }
 
     if (d) {
         return <div>Registration deleted!</div>;
@@ -75,6 +102,7 @@ function MyReservation() {
                         length={r.length}
                         use_equipment={r.use_equipment}
                         onDelete={handleDelete}
+                        onUpdate={handleUpdate}
                     />
                     ) : <p></p>
                 }

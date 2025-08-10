@@ -99,6 +99,18 @@ dataPool.deleteReservation= (id)=>{
   })
 }
 
+dataPool.editReservation=(id, s_time, length)=>{
+  return new Promise((resolve, reject) => {
+    conn.query(`UPDATE Reservation 
+      SET length = ?, s_time = ?
+      WHERE id = ?`, [length,s_time,id], (err,res)=>{
+      if(err){
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
 dataPool.oneUser=(u_id)=>{
  return new Promise ((resolve, reject)=>{
    conn.query(`SELECT * FROM User WHERE u_id = ?`, u_id ,(err,res)=>{

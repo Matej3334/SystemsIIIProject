@@ -64,6 +64,39 @@ reservation.post('/get', async (req, res) => {
     res.end()
 } )
 
+reservation.post('/edit', async (req,res) =>{
+    const{ id, s_time, length }=req.body;
+    var isAlldata = id && s_time && length
+     if (isAlldata) {
+        try {
+            var queryResult = await DB.editReservation(id, s_time, length);
+            if (queryResult.affectedRows) {
+                console.log("Registered new user")
+                res.status(201).json({
+                    "success": true,
+                    "message": "Reservation edit success"
+                });
+            }
+            else {
+                console.log("Something went wrong")
+                res.status(400).json({
+                    "success": false,
+                    "message": "Reservation edit failed."
+                });
+            }
+        } catch(err){
+            console.error('Error editing reservation:', err);
+            res.status(500).json({ error: 'Server error' });
+        }
+     }
+     else{
+        console.log("field is empty")
+        console.log(req.body)
+        res.status(400).json({ success: false, message: "All fields are required" });
+     }
+     res.end()
+})
+
 reservation.post('/delete', async (req, res) =>{
     const { id } = req.body;
     
