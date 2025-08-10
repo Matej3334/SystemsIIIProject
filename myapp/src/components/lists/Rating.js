@@ -13,7 +13,7 @@ function Rating() {
         comment: ''
     });
     const [err, setErr] = useState(false);
-
+    const [err2, setErr2] = useState(false);
     useEffect(() => {
         const userId = localStorage.getItem('id');
         if (!userId) {
@@ -63,12 +63,17 @@ function Rating() {
                 })
             });
             if (!response.ok) {
+                    setErr2(true);
                     throw new Error('Failed to delete rating');
                 }
+            const data = await response.json();
+            console.log(data);
             window.location.reload();
         } catch(err){
             console.error('API error:', err);
+            setErr2(true);
         }
+        console.log("wow")
     }
     const submitRating = async () => {
         const userId = localStorage.getItem('id');
@@ -108,6 +113,7 @@ function Rating() {
                     <span style={{ marginLeft: '8px' }}>{avg}</span>
                 </h4>
                 {err && <div><h1>Error can't have duplicate ratings</h1></div>}
+                {err2 && <div><h1>No review found</h1></div>}
                 <button onClick={addRating}>Add Review</button>
                 <button onClick={deleteRating}>Delete My Review</button>
             </header>

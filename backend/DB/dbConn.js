@@ -99,9 +99,9 @@ dataPool.deleteReservation= (id)=>{
   })
 }
 
-dataPool.deleteRating = (u_id,r_id) =>{
+dataPool.deleteRating = (u_id, r_id) =>{
   return new Promise((resolve, reject) => {
-    conn.query(`DELETE FROM Ratings WHERE id = ? AND r_id= ?`, [u_id, r_id ], (err,res)=>{
+    conn.query(`DELETE FROM Ratings WHERE u_id = ? AND r_id= ?`, [u_id, r_id], (err,res)=>{
       if(err){
         return reject(err)
       }
@@ -145,7 +145,7 @@ dataPool.addRating=(u_id, r_id, score, comment)=>{
 
 dataPool.checkRating=(u_id, r_id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT * FROM Ratings WHERE u_id = ? AND r_id = ?`, [u_id,r_id] ,(err,res)=>{
+   conn.query(`SELECT * FROM Ratings WHERE u_id = ? AND r_id = ?`, [u_id , r_id] ,(err,res)=>{
      if(err){return reject(err)}
      return resolve(res)
    })
