@@ -4,11 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 function ReservationForm() {
     const { id } = useParams();
     const navigate = useNavigate();
-
+    const [validationError, setValidationError] = useState('');
     const [error,setError]=useState(false);
     const [formData, setFormData] = useState({
         u_id: localStorage.getItem('id') || '',
-        length: '',
+        e_time: '',
         r_id: id,
         use_equipment: '', 
         s_time: ''
@@ -21,10 +21,33 @@ function ReservationForm() {
             ...prev,
             [name]: value
         }));
+        if(validationError) setValidationError('');
+    };
+
+    const validateTimes = (start, end) => {
+        const startTime = new Date(start);
+        const endTime = new Date(end);
+        const diffHours = (endTime - startTime) / (1000 * 60 * 60);
+        if (startTime >= endTime) {
+            return "End time must be after start time";
+        }
+        if (diffHours > 5) {
+            return "Maximum reservation duration is 5 hours";
+        }
+        return '';
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const errorMsg = validateTimes(formData.s_time, formData.e_time);
+        if (errorMsg) {
+            setValidationError(errorMsg);
+            return;
+        }
+        
+        setValidationError('');
+
         try {
             const response = await fetch('http://88.200.63.148:3023/reservation/post', {
                 method: 'POST',
@@ -46,30 +69,31 @@ function ReservationForm() {
     if (error){ return(
         <div><h1>Reservation failed</h1></div>
     )}
+
     return (
         <div style={{ padding: '20px' }}>
             <h2>Reserve Room {id}</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Hour: </label>
+                    <label>Start time: </label>
                     <input 
-                        type="number"
+                        type="datetime-local"
                         name="s_time" 
                         value={formData.s_time}
                         onChange={handleChange}
                         required
+                        min={new Date().toISOString().slice(0, 16)} 
                     />
                 </div>        
                 <div>
-                    <label>Length of stay: </label>
+                    <label>End time: </label>
                     <input 
-                        type="number" 
-                        name="length"
-                        max={4}
-                        min={1}
-                        value={formData.length}
+                        type="datetime-local" 
+                        name="e_time"
+                        value={formData.e_time}
                         onChange={handleChange}
                         required
+                        min={formData.s_time || new Date().toISOString().slice(0, 16)}
                     />
                 </div>
                 <div>

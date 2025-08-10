@@ -1,7 +1,7 @@
 import { useState } from "react";
-function ReservationCard({ id, r_id, s_time, length, use_equipment, onDelete, onUpdate }) {
+function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, onUpdate }) {
     const [formData, setFormData] = useState({
-        length: length,
+        e_time: e_time,
         s_time: s_time
     });
 
@@ -16,8 +16,9 @@ function ReservationCard({ id, r_id, s_time, length, use_equipment, onDelete, on
         try {
             await onUpdate(
                 id,
+                formData.r_id,
                 formData.s_time,
-                formData.length
+                formData.e_time
             );
             alert("reservation updated");
         } catch (error) {
@@ -30,7 +31,7 @@ function ReservationCard({ id, r_id, s_time, length, use_equipment, onDelete, on
             <div>
                 <p><strong>Room ID:</strong> {r_id || 'N/A'}</p>
                 <p><strong>Start Time:</strong> {s_time}</p>
-                <p><strong>Duration:</strong> {length || 'N/A'}</p>
+                <p><strong>End time:</strong> {e_time || 'N/A'}</p>
                 <p><strong>Equipment:</strong> {use_equipment}</p>
             </div>
             <button onClick={() => onDelete(id)}
@@ -49,28 +50,26 @@ function ReservationCard({ id, r_id, s_time, length, use_equipment, onDelete, on
                 <div>
                 <label>
                     Start Time:
-                    <input
-                        type="number"
-                        name="s_time"
-                        min="6"
-                        max="23"
+                    <input 
+                        type="datetime-local"
+                        name="s_time" 
                         value={formData.s_time}
                         onChange={handleChange}
                         required
+                        min={new Date().toISOString().slice(0, 16)} 
                     />
                 </label>
                 </div>
                 <div>
                 <label>
-                    Length:
-                    <input
-                        type="number"
-                        name="length"
-                        min="1"
-                        max="4"
-                        value={formData.length}
+                    End time:
+                    <input 
+                        type="datetime-local" 
+                        name="e_time"
+                        value={formData.e_time}
                         onChange={handleChange}
                         required
+                        min={formData.s_time || new Date().toISOString().slice(0, 16)}
                     />
                 </label>
                 </div>

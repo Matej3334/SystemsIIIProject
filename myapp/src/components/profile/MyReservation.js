@@ -39,7 +39,6 @@ function MyReservation() {
     }, []);
 
     const handleDelete = async (id) => {
-
         const response = await fetch('http://88.200.63.148:3023/reservation/delete', {
             method: 'POST',
             headers: {
@@ -56,7 +55,7 @@ function MyReservation() {
         setD(true);
     };
 
-    const handleUpdate = async (id, s_time, length) => {
+    const handleUpdate = async (id, r_id, s_time, e_time) => {
         try {
             const response = await fetch('http://88.200.63.148:3023/reservation/edit', {
                 method: 'POST',
@@ -65,8 +64,9 @@ function MyReservation() {
                 },
                 body: JSON.stringify({
                     id,
+                    r_id,
                     s_time,
-                    length,
+                    e_time,
                 })
 
             });
@@ -99,7 +99,7 @@ function MyReservation() {
                         key={r.id}
                         r_id={r.r_id}
                         s_time={r.s_time}
-                        length={r.length}
+                        e_time={r.e_time}
                         use_equipment={r.use_equipment}
                         onDelete={handleDelete}
                         onUpdate={handleUpdate}
