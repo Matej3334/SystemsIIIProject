@@ -31,6 +31,10 @@ const getTabs = () => {
             text: 'Reservation',
             url: './res',
         },
+        {
+            text: 'Map',
+            url: './map'
+        }
     ]
 }
 export default TabContainer;

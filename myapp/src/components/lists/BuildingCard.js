@@ -23,7 +23,6 @@ function BuildingCard({ id, b_name, location, workhours }) {
     return (
         <div>
             <h3>{b_name}</h3>
-            <p><strong>Location:</strong> {location}</p>
             <p><strong>Hours:</strong> {workhours}</p>
             <div style={{ 
             border: '1px solid #ddd', 

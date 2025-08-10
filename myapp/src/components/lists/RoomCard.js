@@ -32,6 +32,7 @@ function RoomCard({ id, name, capacity, equipment, status }) {
             <button 
             onClick={handleRatingClick}
                 style={{
+                    margin: '3px',
                     padding: '8px 16px',
                     backgroundColor: '#aaaf4cff',
                     color: 'white',

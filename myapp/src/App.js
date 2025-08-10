@@ -7,7 +7,6 @@ class App extends Component{
     render(){
     return(
         <TabContainer>
-            <h1>Page Content</h1>
             <Outlet/>
         </TabContainer>
     );

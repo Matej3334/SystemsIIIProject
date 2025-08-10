@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-
+import Maps from "../map/Maps"
+//import '../maps/Map.css';
 
 class Home extends Component{
-    componentDidMount(){
-    }
-
     render(){
         return(
         <div className="content-container">
             <div className="main-content">
-                <h1>123</h1>
+                <Maps></Maps>
             </div>
         </div>
     );

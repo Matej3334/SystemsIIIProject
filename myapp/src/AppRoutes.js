@@ -9,16 +9,18 @@ import Reserve from './components/form/Reserve'
 import ProfileCard from './components/profile/ProfileCard'
 import MyReservation from './components/profile/MyReservation'
 import Rating from './components/lists/Rating'
+
+
 class AppRoutes extends Component {
     render(){
         return(
             <BrowserRouter>
                 <Routes>
-                    <Route path="/register" element={<Registration />} />
-                    <Route path="/" index={true}  element={<Login />} />
+                    <Route path="/register" element={<Registration/>} />
+                    <Route path="/" index={true} element={<Login/>} />
                     <Route path="/Home" element={<App/>}>
                         <Route index={true} element={<BuildingList/>} />
-                        <Route path="h" element={<Home/>}/>
+                        <Route path="/Home/map" element={<Home/>}/>
                         <Route path="/Home/reserve/:id" element={<Reserve/>} />
                         <Route path="/Home/profile" element={<ProfileCard/>}/>
                         <Route path="/Home/res" element={<MyReservation/>}/>
