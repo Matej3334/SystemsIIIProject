@@ -50,7 +50,26 @@ function Rating() {
     const addRating = () => {
         showForm(true);
     }
-
+    const deleteRating = async () => {
+        const userId = localStorage.getItem('id');
+        try{
+            const response = await fetch(`http://88.200.63.148:3023/rating/${id}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    u_id: userId,
+                })
+            });
+            if (!response.ok) {
+                    throw new Error('Failed to delete rating');
+                }
+            window.location.reload();
+        } catch(err){
+            console.error('API error:', err);
+        }
+    }
     const submitRating = async () => {
         const userId = localStorage.getItem('id');
         try{
@@ -90,6 +109,7 @@ function Rating() {
                 </h4>
                 {err && <div><h1>Error can't have duplicate ratings</h1></div>}
                 <button onClick={addRating}>Add Review</button>
+                <button onClick={deleteRating}>Delete My Review</button>
             </header>
             <div>
                 {form && <div>

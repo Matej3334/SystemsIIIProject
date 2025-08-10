@@ -49,7 +49,7 @@ dataPool.allRooms=(b_id)=>{
 
 dataPool.oneCapacity=(r_id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT capacity FROM Study rooms WHERE id = ?`, [r_id], (err,res)=>{
+   conn.query(`SELECT capacity FROM Study_rooms WHERE id = ?`, [r_id], (err,res)=>{
      if(err){return reject(err)}
      return resolve(res)
    })
@@ -99,6 +99,17 @@ dataPool.deleteReservation= (id)=>{
   })
 }
 
+dataPool.deleteRating = (u_id,r_id) =>{
+  return new Promise((resolve, reject) => {
+    conn.query(`DELETE FROM Ratings WHERE id = ? AND r_id= ?`, [u_id, r_id ], (err,res)=>{
+      if(err){
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
 dataPool.editReservation=(id, s_time, length)=>{
   return new Promise((resolve, reject) => {
     conn.query(`UPDATE Reservation 
@@ -112,10 +123,12 @@ dataPool.editReservation=(id, s_time, length)=>{
   })
 }
 
-dataPool.oneUser=(u_id)=>{
+dataPool.oneUser=(id)=>{
  return new Promise ((resolve, reject)=>{
-   conn.query(`SELECT * FROM User WHERE u_id = ?`, u_id ,(err,res)=>{
-     if(err){return reject(err)}
+   conn.query(`SELECT * FROM User WHERE u_id = ?`, [id] ,(err,res)=>{
+     if(err){
+      return reject(err)
+    }
      return resolve(res)
    })
  })

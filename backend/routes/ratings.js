@@ -16,6 +16,21 @@ rating.get('/:r_id', async (req, res) => {
     res.end()
 });
 
+rating.post('/:r_id/delete', async (req, res) => {
+    try {
+        const r_id = req.params.r_id;
+        const {u_id} = req.body;
+        const queryResult = await DB.deleteRating(u_id, r_id);
+        res.json(queryResult);
+        console.log(`Deleted rating`);
+    }
+    catch (err) {
+        console.error('Error with deletion', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+    res.end()
+});
+
 rating.get('/:r_id/average', async (req, res) => {
     try {
         const r_id = req.params.r_id;

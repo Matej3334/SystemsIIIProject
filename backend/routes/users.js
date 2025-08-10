@@ -10,25 +10,23 @@ users.post('/register', express.json(), async (req, res) => {
     if (isAlldata) {
         try {
             let User = await DB.oneUser(id);
-            if(!User || !User.length > 0){
-                
-            
-            var queryResult = await DB.createUser(id, email, password, f_name, l_name, faculty);
-            if (queryResult.affectedRows) {
-                console.log("Registered new user")
-                res.status(201).json({
-                    "success": true,
-                    "message": "User already exists."
-                });
-            }
-        } else {
-            console.log("User already registered")
-                 res.status(400).json({
+            if (!User || !User.length > 0) {
+                var queryResult = await DB.createUser(id, email, password, f_name, l_name, faculty);
+                if (queryResult.affectedRows) {
+                    console.log("Registered new user")
+                    res.status(201).json({
+                        "success": true,
+                        "message": "User already exists."
+                    });
+                }
+            } else {
+                console.log("User already registered")
+                res.status(400).json({
                     "success": false,
                     "message": "User with that id already exists."
                 });
-                
-        }
+
+            }
         } catch (err) {
             console.error('Error creating user:', err);
             res.status(500).json({ success: false, message: "Internal server error" });
@@ -52,23 +50,23 @@ users.post('/login', express.json(), async (req, res) => {
                 if (password === queryResult[0].password) {
                     console.log("LOGIN SUCCESSFUL")
                     res.status(201).json({
-                    "success": true,
-                    "message": "Logged in"
+                        "success": true,
+                        "message": "Logged in"
                     });
                 }
                 else {
                     console.log("LOGIN UNSUCCESSFUL")
-                    return res.status(401).json({ 
-                    success: false, 
-                    message: "Incorrect password" 
-                });
+                    return res.status(401).json({
+                        success: false,
+                        message: "Incorrect password"
+                    });
                 }
             }
             else {
-                return res.status(401).json({ 
-                success: false, 
-                message: "Invalid credentials" 
-            });
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid credentials"
+                });
             }
         }
         catch (err) {
@@ -83,4 +81,32 @@ users.post('/login', express.json(), async (req, res) => {
     res.end()
 })
 
+users.post('/get', async (req, res) => {
+    const {id} = req.body;
+    if (!id) {
+        return res.status(400).json({
+            success: false,
+            message: "ID is required"
+        });
+    }
+    try {
+        var queryResult = await DB.oneUser(id);
+        if (queryResult && queryResult.length > 0) {
+            res.json(queryResult);
+            console.log("Success");
+        }
+        else {
+            return res.status(401).json({
+                success: false,
+                message: "error, id doesn't exist"
+            });
+        }
+    } catch (err) {
+        return res.status(401).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+    res.end();
+});
 module.exports = users
