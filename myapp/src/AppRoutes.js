@@ -8,6 +8,7 @@ import BuildingList from './components/lists/BuildingList.js'
 import Reserve from './components/form/Reserve'
 import ProfileCard from './components/profile/ProfileCard'
 import MyReservation from './components/profile/MyReservation'
+import Rating from './components/lists/Rating'
 class AppRoutes extends Component {
     render(){
         return(
@@ -21,6 +22,7 @@ class AppRoutes extends Component {
                         <Route path="/Home/reserve/:id" element={<Reserve/>} />
                         <Route path="/Home/profile" element={<ProfileCard/>}/>
                         <Route path="/Home/res" element={<MyReservation/>}/>
+                        <Route path="/Home/rating/:id" element={<Rating/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

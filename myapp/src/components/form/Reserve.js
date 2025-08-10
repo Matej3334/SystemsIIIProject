@@ -5,6 +5,7 @@ function ReservationForm() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const [error,setError]=useState(false);
     const [formData, setFormData] = useState({
         u_id: localStorage.getItem('id') || '',
         length: '',
@@ -38,10 +39,13 @@ function ReservationForm() {
             alert('Reservation successful!');
             navigate('/home');
         } catch (err) {
-            alert(err.message);
+            setError(true)
         }
     };
 
+    if (error){ return(
+        <div><h1>Reservation failed</h1></div>
+    )}
     return (
         <div style={{ padding: '20px' }}>
             <h2>Reserve Room {id}</h2>

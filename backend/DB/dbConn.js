@@ -120,4 +120,41 @@ dataPool.oneUser=(u_id)=>{
  })
 }
 
+dataPool.addRating=(u_id, r_id, score, comment)=>{
+  return new Promise((resolve, reject)=>{
+    conn.query(`INSERT INTO Ratings (u_id, r_id, score, comment) VALUES (?,?,?,?)`, [u_id, r_id, score, comment], (err, res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.allRatings=(r_id)=>{
+ return new Promise ((resolve, reject)=>{
+   conn.query(`SELECT * FROM Ratings WHERE r_id=?`,r_id, (err,res)=>{
+    if(err){
+      return reject(err)
+    }
+     return resolve(res)
+   })
+ })
+}
+
+dataPool.getAverageRating = (r_id) => {
+  if (!r_id) {
+    return Promise.reject(new Error('Room id (r_id) is required'));
+  }
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT AVG(score) as average_score FROM Ratings WHERE r_id = ?`,
+      [r_id],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res[0]?.average_score || 0);
+      }
+    );
+  });
+};
 module.exports = dataPool;

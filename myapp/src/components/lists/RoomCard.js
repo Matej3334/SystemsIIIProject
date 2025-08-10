@@ -6,7 +6,10 @@ function RoomCard({ id, name, capacity, equipment, status }) {
     const handleReserveClick = () => {
         navigate(`./reserve/${id}`); 
     };
-
+    const handleRatingClick = () => {
+        navigate(`./rating/${id}`); 
+    };
+    
     return (
         <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px' }}>
             <h4>Room {name}</h4>
@@ -17,7 +20,7 @@ function RoomCard({ id, name, capacity, equipment, status }) {
                 onClick={handleReserveClick}
                 style={{
                     padding: '8px 16px',
-                    backgroundColor: '#4CAF50',
+                    backgroundColor: status === "unavailable" ? '#f44336' : '#4CAF50',
                     color: 'white',
                     border: 'none',
                     borderRadius: '4px',
@@ -26,6 +29,18 @@ function RoomCard({ id, name, capacity, equipment, status }) {
                 }}
                 disabled={status === "unavailable"}
             >Reserve</button>
+            <button 
+            onClick={handleRatingClick}
+                style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#aaaf4cff',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    marginTop: '10px'
+                }}
+            >Rate</button>
         </div>
     );
 }
