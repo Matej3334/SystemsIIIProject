@@ -133,6 +133,17 @@ dataPool.deleteRating = (u_id, r_id) => {
   })
 }
 
+dataPool.addRoom = ( b_id, name, capacity, equipment, status) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`INSERT INTO Study_rooms (b_id, name, capacity, equipment, status) VALUES (?,?,?,?,?)`, [b_id, name, capacity, equipment, status], (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve(res)
+    })
+  })
+}
+
 dataPool.editReservation = (id, s_time, e_time) => {
   return new Promise((resolve, reject) => {
     conn.query(`UPDATE Reservation 

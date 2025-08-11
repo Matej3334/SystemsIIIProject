@@ -112,7 +112,6 @@ function AddRoom() {
                         required
                     >
                         <option value="" disabled>Select equipment</option>
-                        <option value="none">No equipment</option>
                         <option value="mouse">Mouse</option>
                         <option value="charger">Charger</option>
                         <option value="table">Table</option>

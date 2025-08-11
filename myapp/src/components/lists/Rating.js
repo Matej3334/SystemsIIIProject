@@ -8,6 +8,7 @@ function Rating() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [form, showForm] = useState(false);
+    const [admin, setAdmin] = useState(false);
     const [newRating, setNewRating] = useState({
         score: 3,
         comment: ''
@@ -18,6 +19,8 @@ function Rating() {
         const userId = localStorage.getItem('id');
         if (!userId) {
             navigate('/');
+        } else if(userId == 9){
+            setAdmin(true);
         }
     }, [navigate]);
 
@@ -114,8 +117,8 @@ function Rating() {
                 </h4>
                 {err && <div><h1>Error can't have duplicate ratings</h1></div>}
                 {err2 && <div><h1>No review found</h1></div>}
-                <button onClick={addRating}>Add Review</button>
-                <button onClick={deleteRating}>Delete My Review</button>
+                {!admin && <button onClick={addRating}>Add Review</button>}
+                {!admin && <button onClick={deleteRating}>Delete My Review</button>}
             </header>
             <div>
                 {form && <div>
