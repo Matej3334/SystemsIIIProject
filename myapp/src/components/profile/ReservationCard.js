@@ -30,7 +30,12 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
     return (
         <div>
             <h3>Reservation</h3>
-            <div>
+            <div style={{ 
+            border: '1px solid #ddd', 
+            padding: '15px', 
+            margin: '10px',
+            borderRadius: '5px'
+        }}>
                 <p><strong>Room ID:</strong> {r_id || 'N/A'}</p>
                 <p><strong>Start Time:</strong> {s_time}</p>
                 <p><strong>End time:</strong> {e_time || 'N/A'}</p>
@@ -49,7 +54,13 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
 
             <h3>Edit time:</h3>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div style={{ 
+            border: '1px solid #ddd', 
+            padding: '15px', 
+            margin: '10px',
+            borderRadius: '5px'
+        }}>
+                <div >
                 <label>
                     Start Time:
                     <input 
@@ -74,6 +85,7 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
                         min={formData.s_time || new Date().toISOString().slice(0, 16)}
                     />
                 </label>
+                </div>
                 </div>
                 <button type="submit">Save Changes</button>
             </form>

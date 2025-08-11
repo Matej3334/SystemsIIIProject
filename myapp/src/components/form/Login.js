@@ -1,6 +1,7 @@
 import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import './styles.css'
 
 function Form() {
     const [formData, setFormData] = useState({
@@ -47,7 +48,7 @@ function Form() {
     }
 
     return (
-        <div>
+        <div className='container'>
             <h2>Login</h2>
             {error}
             <form method='POST' onSubmit={handleSubmit} >

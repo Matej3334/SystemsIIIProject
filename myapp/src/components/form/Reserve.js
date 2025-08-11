@@ -71,9 +71,9 @@ function ReservationForm() {
     )}
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div style={{ padding: '20px' }} className='container'>
             <h2>Reserve Room {id}</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{backgroundColor:"#f2f2f2"}}>
                 <div>
                     <label>Start time: </label>
                     <input 

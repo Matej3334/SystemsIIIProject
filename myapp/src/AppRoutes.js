@@ -9,7 +9,7 @@ import Reserve from './components/form/Reserve'
 import ProfileCard from './components/profile/ProfileCard'
 import MyReservation from './components/profile/MyReservation'
 import Rating from './components/lists/Rating'
-
+import AddRoom from './components/form/AddRoom'
 
 class AppRoutes extends Component {
     render(){
@@ -25,6 +25,7 @@ class AppRoutes extends Component {
                         <Route path="/Home/profile" element={<ProfileCard/>}/>
                         <Route path="/Home/res" element={<MyReservation/>}/>
                         <Route path="/Home/rating/:id" element={<Rating/>}/>
+                        <Route path="/Home/addroom" element={<AddRoom/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

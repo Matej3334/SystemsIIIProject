@@ -34,16 +34,24 @@ function ProfileCard() {
     return (
         <div>
             <div>
+                <h3>
                 {`User: ${userData.first_name}`}
+                </h3>
             </div>
             <div>
+                <h3>
                 {`Last Name: ${userData.last_name}`}
+                </h3>
             </div>
             <div>
+                <h3>
                 { `Email: ${userData.email}`}
+                </h3>
             </div>
             <div>
+                <h3>
                 { `Faculty: ${userData.faculty}`}
+                </h3>
             </div>
             <button onClick={logout}>Log out</button>
         </div>

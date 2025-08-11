@@ -1,11 +1,23 @@
-.tab-navigator{
-    
-    .tab-container{
-        display: flex;
-        gap: 5px;
-    }
-    .tab-item{
-        background: gray;
-        padding: 2px;
-    }
+.tab-navigator {
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-container {
+    display: flex;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tab-item {
+    background: rgb(128, 204, 229);
+    padding: 2px;
+    display: block;
+}
+
+.tab-item:hover {
+    background-color: rgb(203, 229, 238);
+    padding: 5px;
+    color: purple;
 }

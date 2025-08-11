@@ -7,6 +7,7 @@ class Home extends Component{
         return(
         <div className="content-container">
             <div className="main-content">
+                <br></br>
                 <Maps></Maps>
             </div>
         </div>

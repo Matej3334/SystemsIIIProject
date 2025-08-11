@@ -87,7 +87,7 @@ function MyReservation() {
     }
 
     if (d) {
-        return <div>Registration deleted!</div>;
+        return <div><h3>Registration deleted!</h3></div>;
     }
 
     return (
@@ -95,7 +95,12 @@ function MyReservation() {
             <header>
                 <h1>Your reservation:</h1>
             </header>
-            <div>
+            <div style={{ 
+            border: '1px solid #ddd', 
+            padding: '15px', 
+            margin: '10px',
+            borderRadius: '5px'
+        }}>
                 {reservation ?
                     reservation.map(r => <ReservationCard
                         id={r.id}

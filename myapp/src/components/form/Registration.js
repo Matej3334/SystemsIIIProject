@@ -64,7 +64,7 @@ function Registration() {
     }
 
     return (
-        <div>
+        <div className='container'>
             <h2>Registration</h2>
             {error && <div>{error}</div>}
             <form method='POST' onSubmit={handleSubmit}>
