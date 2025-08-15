@@ -4,7 +4,7 @@ import ReservationCard from './ReservationCard'
 
 function MyReservation() {
     const [reservation, setReservation] = useState(null);
-    const [d, setD] = useState(false);
+    const [deleted, setDelete] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -51,8 +51,8 @@ function MyReservation() {
         if (!response.ok) {
             throw new Error('Failed to delete reservation');
         }
-        //window.location.reload();
-        setD(true);
+
+        setDelete(true);
     };
 
     const handleUpdate = async (id, r_id, s_time, e_time) => {
@@ -73,9 +73,9 @@ function MyReservation() {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.error || 'Failed to update reservation time');
+                throw new Error('Failed to update reservation time');
             }
-            setReservation(prev => prev.map(r => 
+            setReservation(prev => prev.map(r =>
                 r.id === id ? { ...r, s_time, e_time } : r
             ));
 
@@ -86,7 +86,7 @@ function MyReservation() {
         }
     }
 
-    if (d) {
+    if (deleted) {
         return <div><h3>Registration deleted!</h3></div>;
     }
 
@@ -95,12 +95,12 @@ function MyReservation() {
             <header>
                 <h1>Your reservation:</h1>
             </header>
-            <div style={{ 
-            border: '1px solid #ddd', 
-            padding: '15px', 
-            margin: '10px',
-            borderRadius: '5px'
-        }}>
+            <div style={{
+                border: '1px solid #ddd',
+                padding: '15px',
+                margin: '10px',
+                borderRadius: '5px'
+            }}>
                 {reservation ?
                     reservation.map(r => <ReservationCard
                         id={r.id}

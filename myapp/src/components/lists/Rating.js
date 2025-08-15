@@ -19,7 +19,7 @@ function Rating() {
         const userId = localStorage.getItem('id');
         if (!userId) {
             navigate('/');
-        } else if(userId == 9){
+        } else if (userId == 9) {
             setAdmin(true);
         }
     }, [navigate]);
@@ -55,7 +55,7 @@ function Rating() {
     }
     const deleteRating = async () => {
         const userId = localStorage.getItem('id');
-        try{
+        try {
             const response = await fetch(`http://88.200.63.148:3023/rating/${id}/delete`, {
                 method: 'POST',
                 headers: {
@@ -66,13 +66,13 @@ function Rating() {
                 })
             });
             if (!response.ok) {
-                    setErr2(true);
-                    throw new Error('Failed to delete rating');
-                }
+                setErr2(true);
+                throw new Error('Failed to delete rating');
+            }
             const data = await response.json();
             console.log(data);
             window.location.reload();
-        } catch(err){
+        } catch (err) {
             console.error('API error:', err);
             setErr2(true);
         }
@@ -80,7 +80,7 @@ function Rating() {
     }
     const submitRating = async () => {
         const userId = localStorage.getItem('id');
-        try{
+        try {
             const response = await fetch(`http://88.200.63.148:3023/rating/${id}/post`, {
                 method: 'POST',
                 headers: {
@@ -99,7 +99,7 @@ function Rating() {
                 throw new Error('Failed to submit rating');
             }
             window.location.reload();
-        }catch(err){
+        } catch (err) {
             setErr(true);
             console.error('Submission error:', err);
         }
@@ -121,7 +121,7 @@ function Rating() {
                 {!admin && <button onClick={deleteRating}>Delete My Review</button>}
             </header>
             <div>
-                {form && <div>
+                {form && <div className='container'> 
                     <h3>Add Your Review</h3>
                     <div>
                         <label>Rating: </label>
@@ -138,7 +138,7 @@ function Rating() {
                     <br></br>
                     <div>
                         <div>
-                        <label>Comment: </label>
+                            <label>Comment: </label>
                         </div>
                         <textarea
                             name="comment"

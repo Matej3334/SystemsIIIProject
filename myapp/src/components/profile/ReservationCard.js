@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, onUpdate }) {
     const [formData, setFormData] = useState({
@@ -7,6 +7,14 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
         s_time: s_time
     });
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const userId = localStorage.getItem('id');
+        if (!userId) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,12 +38,12 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
     return (
         <div>
             <h3>Reservation</h3>
-            <div style={{ 
-            border: '1px solid #ddd', 
-            padding: '15px', 
-            margin: '10px',
-            borderRadius: '5px'
-        }}>
+            <div style={{
+                border: '1px solid #ddd',
+                padding: '15px',
+                margin: '10px',
+                borderRadius: '5px'
+            }}>
                 <p><strong>Room ID:</strong> {r_id || 'N/A'}</p>
                 <p><strong>Start Time:</strong> {s_time}</p>
                 <p><strong>End time:</strong> {e_time || 'N/A'}</p>
@@ -54,38 +62,38 @@ function ReservationCard({ id, r_id, s_time, e_time, use_equipment, onDelete, on
 
             <h3>Edit time:</h3>
             <form onSubmit={handleSubmit}>
-                <div style={{ 
-            border: '1px solid #ddd', 
-            padding: '15px', 
-            margin: '10px',
-            borderRadius: '5px'
-        }}>
-                <div >
-                <label>
-                    Start Time:
-                    <input 
-                        type="datetime-local"
-                        name="s_time" 
-                        value={formData.s_time}
-                        onChange={handleChange}
-                        required
-                        min={new Date().toISOString().slice(0, 16)} 
-                    />
-                </label>
-                </div>
-                <div>
-                <label>
-                    End time:
-                    <input 
-                        type="datetime-local" 
-                        name="e_time"
-                        value={formData.e_time}
-                        onChange={handleChange}
-                        required
-                        min={formData.s_time || new Date().toISOString().slice(0, 16)}
-                    />
-                </label>
-                </div>
+                <div style={{
+                    border: '1px solid #ddd',
+                    padding: '15px',
+                    margin: '10px',
+                    borderRadius: '5px'
+                }}>
+                    <div >
+                        <label>
+                            Start Time:
+                            <input
+                                type="datetime-local"
+                                name="s_time"
+                                value={formData.s_time}
+                                onChange={handleChange}
+                                required
+                                min={new Date().toISOString().slice(0, 16)}
+                            />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            End time:
+                            <input
+                                type="datetime-local"
+                                name="e_time"
+                                value={formData.e_time}
+                                onChange={handleChange}
+                                required
+                                min={formData.s_time || new Date().toISOString().slice(0, 16)}
+                            />
+                        </label>
+                    </div>
                 </div>
                 <button type="submit">Save Changes</button>
             </form>

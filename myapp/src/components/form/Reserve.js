@@ -1,16 +1,16 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function ReservationForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [validationError, setValidationError] = useState('');
-    const [error,setError]=useState(false);
+    const [error, setError] = useState(false);
     const [formData, setFormData] = useState({
         u_id: localStorage.getItem('id') || '',
         e_time: '',
         r_id: id,
-        use_equipment: '', 
+        use_equipment: '',
         s_time: ''
     });
 
@@ -21,7 +21,7 @@ function ReservationForm() {
             ...prev,
             [name]: value
         }));
-        if(validationError) setValidationError('');
+        if (validationError) setValidationError('');
     };
 
     const validateTimes = (start, end) => {
@@ -39,13 +39,13 @@ function ReservationForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const errorMsg = validateTimes(formData.s_time, formData.e_time);
         if (errorMsg) {
             setValidationError(errorMsg);
             return;
         }
-        
+
         setValidationError('');
 
         try {
@@ -58,7 +58,7 @@ function ReservationForm() {
             });
 
             if (!response.ok) throw new Error('Reservation failed');
-            
+
             alert('Reservation successful!');
             navigate('/home');
         } catch (err) {
@@ -66,29 +66,31 @@ function ReservationForm() {
         }
     };
 
-    if (error){ return(
-        <div><h1>Reservation failed</h1></div>
-    )}
+    if (error) {
+        return (
+            <div><h1>Reservation failed</h1></div>
+        )
+    }
 
     return (
         <div style={{ padding: '20px' }} className='container'>
             <h2>Reserve Room {id}</h2>
-            <form onSubmit={handleSubmit} style={{backgroundColor:"#f2f2f2"}}>
+            <form onSubmit={handleSubmit} style={{ backgroundColor: "#f2f2f2" }}>
                 <div>
                     <label>Start time: </label>
-                    <input 
+                    <input
                         type="datetime-local"
-                        name="s_time" 
+                        name="s_time"
                         value={formData.s_time}
                         onChange={handleChange}
                         required
-                        min={new Date().toISOString().slice(0, 16)} 
+                        min={new Date().toISOString().slice(0, 16)}
                     />
-                </div>        
+                </div>
                 <div>
                     <label>End time: </label>
-                    <input 
-                        type="datetime-local" 
+                    <input
+                        type="datetime-local"
                         name="e_time"
                         value={formData.e_time}
                         onChange={handleChange}
@@ -98,10 +100,10 @@ function ReservationForm() {
                 </div>
                 <div>
                     <label>Additional equipment:</label>
-                    <select 
+                    <select
                         name="use_equipment"
-                        onChange={handleChange} 
-                        required 
+                        onChange={handleChange}
+                        required
                         value={formData.use_equipment}
                     >
                         <option value="" disabled>--Please choose an option--</option>

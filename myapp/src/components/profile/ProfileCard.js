@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function ProfileCard() {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        const userId = localStorage.getItem('id');
+        if (!userId) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const getUser = async () => {
@@ -35,22 +44,22 @@ function ProfileCard() {
         <div>
             <div>
                 <h3>
-                {`User: ${userData.first_name}`}
+                    {`User: ${userData.first_name}`}
                 </h3>
             </div>
             <div>
                 <h3>
-                {`Last Name: ${userData.last_name}`}
+                    {`Last Name: ${userData.last_name}`}
                 </h3>
             </div>
             <div>
                 <h3>
-                { `Email: ${userData.email}`}
+                    {`Email: ${userData.email}`}
                 </h3>
             </div>
             <div>
                 <h3>
-                { `Faculty: ${userData.faculty}`}
+                    {`Faculty: ${userData.faculty}`}
                 </h3>
             </div>
             <button onClick={logout}>Log out</button>

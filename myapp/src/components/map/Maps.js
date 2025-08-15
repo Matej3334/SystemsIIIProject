@@ -15,7 +15,6 @@ L.Icon.Default.mergeOptions({
 function Maps() {
   const [buildings, setBuildings] = useState([]);
   const [error, setError] = useState(null);
-
   const center = [45.5486, 13.7292];
 
   useEffect(() => {
@@ -32,9 +31,7 @@ function Maps() {
         const formattedBuildings = data.map(building => {
           let location;
 
-          if (Array.isArray(building.location)) {
-            location = building.location;
-          } else if (typeof building.location === 'string') {
+          if (typeof building.location ===  'string') {
             const [lat, lng] = building.location.split(',').map(Number);
             location = [lat, lng];
           } else {
@@ -46,14 +43,12 @@ function Maps() {
             location: location
           };
         });
-
         setBuildings(formattedBuildings);
       } catch (err) {
         console.error('API error:', err);
         setError(err.message);
       }
     };
-
     getBuildings();
   }, []);
 
